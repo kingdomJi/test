@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           https://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/context
+           https://www.springframework.org/schema/context/spring-context.xsd ">
+<!--注解开发需要导入context支持-->
+
+    <bean id="cat" class="com.jiang.pojo.Cat"/>
+    <!--<bean id="dog" class="com.jiang.pojo.Dog"/>-->
+    <bean id="dog22" class="com.jiang.pojo.Dog"/>
+    <!--传统装配
+    <bean id="human" class="com.jiang.pojo.Human">
+        <property name="name" value="蒋山"/>
+        <property name="cat" ref="cat"/>
+        <property name="dog" ref="dog"/>
+    </bean>
+    -->
+    <!--byName自动装配,需保证所有bean的id唯一，自动寻找容器上下文中和自己对象set方法后面的值(属性名)对应的bean id，这里可以识别dog,不能识别dog22-->
+    <!--
+    <bean id="human" class="com.jiang.pojo.Human" autowire="byName">
+        <property name="name" value="蒋山"/>
+    </bean>
+    -->
+    <!--byType自动装配,需保证所有bean的class唯一，自动寻找容器上下文中和自己对象属性(类型)相同的bean id,这里可以识别dog22-->
+    <bean id="human" class="com.jiang.pojo.Human" autowire="byType">
+        <property name="name" value="蒋山"/>
+    </bean>
+</beans>

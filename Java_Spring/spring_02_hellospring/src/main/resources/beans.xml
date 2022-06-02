@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd ">
+
+   <!--spring中的对象被称为bean
+   对象由spring创建，属性由spring设置
+   id=变量名
+   class=实例化的类（new的对象）
+   property=给对象中的属性赋值
+   -->
+   <bean id="hello" class="com.jiang.Hello">
+      <property name="str" value="wocao"/>
+   </bean>
+   <!--创建对象的方式，对于有参构造直接通过constructor-arg+参数名来设置，建议使用。无参构造则不用管，自动执行-->
+   <bean id="user" class="com.jiang.pojo.User" name="userb"><!--name在这也是别名，可以创建多个-->
+     <!--
+      <constructor-arg name="name" value="jiangshan"/>
+      -->
+   </bean>
+   <!--
+      c命名空间，针对有参构造，通过构造器注入,需要先引用xmlns
+      <bean id=" xxx " class="xxxxx" c:name="jiangshan" p:age="18"/>
+      -->
+   <bean id="user2" class="com.jiang.pojo.User" c:name="jiangshan" c:age='23' scope="prototype"/>
+   <!--设置设计模式，来设置bean的作用域，
+   例如单例模式（singleton，每一次get同一个id都是同一个对象，spring默认机制），
+   原型模式(prototype,每一次从容器中get都会产生新对象)，占资源，但可用于多线程
+   -->
+   <!--alias，别名-->
+   <alias name="user" alias="myuser"/>
+   <!--import引入别的配置，合并多个xml-->
+   <import resource="bean2.xml"/><!--别忘了.xml的后缀-->
+
+   <bean id="address" class="com.jiang.Address">
+
+   </bean>
+   <bean id="student" class="com.jiang.Student">
+      <!--
+      p命名空间，可以直接为属性赋值
+      <bean id=" xxx " class="xxxxx" p:name="jiangshan" p:age="18"/>
+      -->
+      <property name="books">
+         <array>
+            <value>红楼梦</value>
+            <value>三国演义</value>
+            <value>西游记</value>
+         </array>
+      </property>
+      <property name="card">
+         <map>
+            <entry key="身份证" value="456688444"/>
+            <entry key="银行卡" value="777888555444"/>
+         </map>
+      </property>
+      <property name="hobbies">
+         <list>
+            <value>听歌</value>
+            <value>敲代码</value>
+            <value>看电影</value>
+         </list>
+      </property>
+      <property name="games">
+         <set>
+            <value>LOL</value>
+            <value>COC</value>
+            <value>TOT</value>
+         </set>
+      </property>
+      <property name="address" ref="address"/>
+
+      <property name="info">
+         <props>
+            <prop key="url">3456899</prop>
+            <prop key="driver">localhost:8080</prop>
+            <prop key="username">root</prop>
+         </props>
+      </property>
+   </bean>
+</beans>

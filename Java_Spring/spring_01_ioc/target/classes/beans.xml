@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--spring中的对象被称为bean
+    对象由spring创建，属性由spring设置
+    id=变量名
+    class=实例化的类（new的对象）
+    property=给对象中的属性赋值
+    -->
+    <bean id="daoImpl" class="com.jiang.dao.UserDaoImpl">
+
+    </bean>
+    <!--class路径从Java包下开始写起-->
+    <bean id="userService" class="com.jiang.service.UserServiceImpl">
+        <!--ref 用来引用spring容器中创建好的对象
+        value 用来赋具体的值
+        -->
+        <property name="userDao" ref="daoImpl"/>
+    </bean>
+</beans>
